@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <script src="https://kit.fontawesome.com/a47de9f1b2.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="all.min.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+    <div class="banner">
+        <form id="loginForm">
+            <h1>ENTER YOUR KEY</h1>
+            <div class="input-box">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="keyInput" placeholder="Your key" required>
+            </div>
+            <button type="submit" class="button">LOGIN</button>
+            <p class="key">Don't have a key?</p>
+            <p class="key2">Press the button below</p>
+            <a href="https://wa.me/qr/G3IDF76MD7QKM1" target="_blank" rel="noopener noreferrer"><button type="button" class="button" id="contactBtn">Contact Me</button></a>
+        </form>
+    </div>
+
+    <!-- Modal for messages -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="modalMessage"></p>
+        </div>
+    </div>
+
+    <script>
+        // Correct key
+        const CORRECT_KEY = "9C-16-2025-XYZ";
+        
+        // Get DOM elements
+        const loginForm = document.getElementById('loginForm');
+        const keyInput = document.getElementById('keyInput');
+        const contactBtn = document.getElementById('contactBtn');
+        const modal = document.getElementById('messageModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const closeBtn = document.querySelector('.close');
+        
+        // Form submission handler
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const enteredKey = keyInput.value.trim();
+            
+            if (enteredKey === CORRECT_KEY) {
+                // Correct key - redirect to home.html
+                window.location.href = "home.html";
+            } else {
+                // Wrong key - show error message
+                showModal("Invalid key! Please try again.");
+                keyInput.value = ''; // Clear the input
+                keyInput.focus(); // Focus back on the input
+            }
+        });
+        
+        // Contact button handler
+        contactBtn.addEventListener('click', function() {
+            showModal("Please contact the administrator to get your access key.");
+        });
+        
+        // Close modal when clicking X
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+        
+        // Function to show modal with message
+        function showModal(message) {
+            modalMessage.textContent = message;
+            modal.style.display = "block";
+        }
+    </script>
+</body>
+</html>
